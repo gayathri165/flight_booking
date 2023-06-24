@@ -1,0 +1,113 @@
+{% extends 'myapp/base_admin.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        background-color: #f5faff;
+        padding: 20px;
+    }
+
+    .card-title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    .table thead th {
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+    }
+
+    .form-heading {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    body {
+        background-image: url("{% static 'img/airplane4.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<div class="container">
+    <h3>{{ msg }}</h3>
+    <h2 class="text-center">Flight Information</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>SOURCE</th>
+                    <th>DESTINATION</th>
+                    <th>NUM OF SEATS</th>
+                    <th>NUM OF SEATS REM</th>
+                    <th>PRICE</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in flight_list %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.flight_name }}</td>
+                    <td>{{ row.source }}</td>
+                    <td>{{ row.dest }}</td>
+                    <td>{{ row.nos }}</td>
+                    <td>{{ row.rem }}</td>
+                    <td>{{ row.price }}</td>
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+            <div class="col-md-6 mt-5 mx-auto">
+                <div class="card" style="background-color: #e9f1f7;">
+                    <div class="card-body">
+                        <form action="{% url 'bookings' %}" method="post" style="display: inline-block;">
+                            <h3 class="form-heading">Choose Flight to Book</h3>
+                            <br><br>
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="flight-id-input" class="col-sm-6 col-form-label font-weight-bold">Flight ID</label>
+                                <div class="col-sm-5">
+                                    <input name='flight_id' class="form-control" type="number" id="flight-id-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="no-seats-input" class="col-sm-6 col-form-label font-weight-bold">Number of Seats</label>
+                                <div class="col-sm-5">
+                                    <input name='no_seats' class="form-control" type="number" id="no-seats-input">
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Book Flight</button>
+                            </div>
+
+                            {{ error }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

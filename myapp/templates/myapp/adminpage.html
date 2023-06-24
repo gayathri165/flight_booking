@@ -1,0 +1,33 @@
+{% extends 'myapp/admin_navbar.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-image: url('{% static 'img/airplane2.png' %}');
+        background-size: cover;
+    }
+
+
+    .container {
+        margin-top: 10px;
+    }
+
+    h2 {
+        background-color: transparent;
+        color: white;
+        padding: 40px;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-11 mt-10"><br>
+            <br>  <br>
+            <h2 class="text-center">Welcome to Airlines - Admin Page</h2>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

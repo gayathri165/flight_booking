@@ -1,0 +1,75 @@
+{% extends 'myapp/base_admin.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .text-center {
+        text-align: center;
+    }
+    .bill-details-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .confirmed-msg {
+        color: green;
+    }
+    body {
+        background-image: url("{% static 'img/ticket.jpg' %}");
+        background-repeat: no-repeat;
+        background-position: top right;
+        background-size: auto 100%;
+    }
+</style>
+
+<form action="{% url 'home' %}" method="post">
+    {% csrf_token %}
+    <br><br><br>
+    <h2 class="text-center confirmed-msg">Your booking has been confirmed!</h2>
+    <br>
+    <h2 class="text-center">Thank you!</h2>
+    <br>
+    <div class="bill-details-container">
+        <h3>Bill details</h3>
+        <!-- Button to Open the Modal --><br>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+            Get Your Bill details
+        </button>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Flight name:</b> {{book.flight_name}}</li>
+                        <li class="list-group-item"><b>Starting point:</b> {{book.source}}</li>
+                        <li class="list-group-item"><b>Destination point:</b> {{book.dest}}</li>
+                        <li class="list-group-item"><b>Number of seats:</b> {{book.nos}}</li>
+                        <li class="list-group-item"><b>Price:</b> {{book.price}}</li>
+                        <li class="list-group-item"><b>Cost:</b> {{cost}}</li>
+                        <li class="list-group-item"><b>Date:</b> {{book.date}}</li>
+                        <li class="list-group-item"><b>Time:</b> {{book.time}}</li>
+                    </ul>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="window.print()">Print Your Ticket</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Go Home</button>
+    </div>
+</form>
+{% endblock %}

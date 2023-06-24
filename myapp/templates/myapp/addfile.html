@@ -1,0 +1,131 @@
+{% extends 'myapp/admin_navbar.html' %}
+{% load static %}
+{% block content %}
+
+    {% if messages %}
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-sm-6">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+{% endif %}
+<style>
+     body {
+        background-image: url('{% static 'img/airline.jpg' %}');
+        background-size: cover;
+    }
+    .form-container {
+        margin-top: 70px;
+        padding: 20px;
+    }
+
+    h2 {
+        color: blue;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    label {
+        color: black;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"] {
+        background-color: #e9f1f7;
+        border: none;
+        border-radius: 0;
+        color: black;
+    }
+
+    .btn-success {
+        float: right;
+    }
+
+    /* Remove hovering effect */
+    input[type="text"]:hover,
+    input[type="number"]:hover,
+    input[type="date"]:hover,
+    input[type="time"]:hover {
+        background-color: #e9f1f7;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 mx-auto form-container">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center mb-4" style="color: blue;">Add Flight Information</h2>
+
+                    <form action="{% url 'addfile' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="flight-name" class="col-2 col-form-label">Flight Name</label>
+                            <div class="col-10">
+                                <input name="flight_name" class="form-control" type="text" id="flight-name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="source" class="col-2 col-form-label">Source</label>
+                            <div class="col-10">
+                                <input name="source" class="form-control" type="text" id="source">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dest" class="col-2 col-form-label">Destination</label>
+                            <div class="col-10">
+                                <input name="dest" class="form-control" type="text" id="dest">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nos" class="col-2 col-form-label">Number of Seats</label>
+                            <div class="col-10">
+                                <input name="nos" class="form-control" type="number" id="nos">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="rem" class="col-2 col-form-label">Remaining Seats</label>
+                            <div class="col-10">
+                                <input name="rem" class="form-control" type="number" id="rem">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="price" class="col-2 col-form-label">Price</label>
+                            <div class="col-10">
+                                <input name="price" class="form-control" type="number" id="price">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="date" class="col-2 col-form-label">Date</label>
+                            <div class="col-10">
+                                <input name="date" class="form-control" type="date" id="date">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="time" class="col-2 col-form-label">Time</label>
+                            <div class="col-10">
+                                <input name="time" class="form-control" type="time" id="time">
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-success">Add Flight</button>
+                        </div>
+                        {{ error }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

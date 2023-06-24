@@ -1,0 +1,86 @@
+{% extends 'myapp/admin_navbar.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-image: url("{% static 'img/gy.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background-color: #e9f1f7;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+    }
+
+    .table {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: separate;
+    }
+
+    .table thead th {
+        background-color: blue;
+        color: white;
+        padding: 10px;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <h2 class="text-center">Customer Bookings</h2>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>BOOKING ID</th>
+                    <th>USER ID</th>
+                    <th>USER NAME</th>
+                    <th>FLIGHT ID</th>
+                    <th>FLIGHT NAME</th>
+                    <th>FROM</th>
+                    <th>TO</th>
+                    <th>NUM OF SEATS</th>
+                    <th>PRICE</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.id }}</td>
+                        <td>{{ booking.userid }}</td>
+                        <td>{{ booking.name }}</td>
+                        <td>{{ booking.flightid }}</td>
+                        <td>{{ booking.flight_name }}</td>
+                        <td>{{ booking.source }}</td>
+                        <td>{{ booking.dest }}</td>
+                        <td>{{ booking.nos }}</td>
+                        <td>{{ booking.price }}</td>
+                        <td>{{ booking.date }}</td>
+                        <td>{{ booking.time }}</td>
+                        <td>{{ booking.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

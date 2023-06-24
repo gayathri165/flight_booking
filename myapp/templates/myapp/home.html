@@ -1,0 +1,146 @@
+{% extends 'myapp/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .welcome-section {
+        text-align: center;
+        padding: 50px 0;
+
+        color: #fff;
+    }
+
+    .welcome-section h1 {
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .popular-destinations-section {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+            url('{% static 'img/airplane1.jpg' %}');
+        background-size: cover;
+        padding: 100px 0;
+        text-align: center;
+        color: #fff;
+    }
+
+    .popular-destinations-section h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .popular-destination {
+        cursor: pointer;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .popular-destination .thumb img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s;
+    }
+
+    .popular-destination:hover .thumb img {
+        transform: scale(1.2);
+    }
+
+    .popular-destination .content {
+        padding: 10px;
+    }
+
+    .popular-destination .content a {
+        color: #fff;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .popular-destination:hover .content a {
+        color: #f2b134;
+    }
+</style>
+
+
+
+
+
+<section class="popular-destinations-section">
+    <div class="container">
+        <div class="welcome-section">
+                <h1>Welcome to Airlines - Your Flight Reservation System</h1></div>
+
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <h2>Popular Destinations</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="popular-destination" onclick="window.location.href = 'https://en.wikipedia.org/wiki/Tourism_in_Italy'">
+                    <div class="thumb">
+                        <img src="{% static 'img/1.png' %}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#">Italy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="popular-destination" onclick="window.location.href = 'https://en.wikipedia.org/wiki/Tourism_in_Brazil'">
+                    <div class="thumb">
+                        <img src="{% static 'img/2.png' %}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#">Brazil</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="popular-destination" onclick="window.location.href = 'https://en.wikipedia.org/wiki/Tourism_in_the_United_States'">
+                    <div class="thumb">
+                        <img src="{% static 'img/3.png' %}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#">America</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="popular-destination" onclick="window.location.href = 'https://en.wikipedia.org/wiki/Tourism_in_Nepal'">
+                    <div class="thumb">
+                        <img src="{% static 'img/4.png' %}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#">Nepal</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="popular-destination" onclick="window.location.href = 'https://en.wikipedia.org/wiki/Tourism_in_the_Maldives'">
+                    <div class="thumb">
+                        <img src="{% static 'img/5.png' %}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#">Maldives</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="popular-destination" onclick="window.location.href = 'https://en.wikipedia.org/wiki/Tourism_in_Indonesia'">
+                    <div class="thumb">
+                        <img src="{% static 'img/6.png' %}" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#">Indonesia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

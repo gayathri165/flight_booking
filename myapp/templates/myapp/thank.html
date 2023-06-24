@@ -1,0 +1,22 @@
+{% extends 'myapp/index_base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'img/signin.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 mx-auto" style="margin-top: 70px">
+            <h1>Thank you for signing up!</h1>
+        </div>
+    </div>
+    <br>  <br>
+    <div class="text-center mt-3">
+        <a href="{% url 'signin' %}" class="btn btn-primary">Sign In</a>
+    </div>
+</div>
+{% endblock %}
