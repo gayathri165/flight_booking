@@ -1,37 +1,69 @@
 {% extends 'myapp/index_base.html' %}
-{% block content %}
 {% load static %}
+{% block content %}
+{% if error_message %}
+    <div class="alert alert-danger">{{ error_message }}</div>
+{% endif %}
 <style>
     body {
-        background-image: url("{% static 'img/signin.jpg' %}");
-        background-repeat: no-repeat;
+        background-image: url('{% static 'mysite/images/signin.jpg' %}');
         background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: rgba(0, 0, 0, 0);
+
+        height: 100vh;
+    }
+
+    .container {
+        color: black;
+    }
+    input:invalid {
+        border-color: red;
+    }
+
+    .invalid-feedback {
+        color: red;
+        display: none;
+        margin-top: 5px;
+    }
+
+    input:invalid + .invalid-feedback {
+        display: block;
     }
 </style>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6 mt-5">
+        <div class="col-sm-8 mt-5">
             <div class="card" style="background-color: #e9f1f7;">
                 <div class="card-body">
-                    <h2 class="text-center mb-4" style="color: blue;">Sign up!</h2>
-
+                    <h2 class="card-title text-center">Sign up!</h2>
+                    <br>
                     <form action="{% url 'signup' %}" method="post">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label for="example-email-input" class="col-form-label">Email:</label>
-                            <input name="email" class="form-control" type="text" id="example-email-input" required>
+                        <div class="form-group row">
+                            <label for="example-email-input" class="col-2 col-form-label">Email:</label>
+                            <div class="col-10">
+                                <input name="email" class="form-control" type="email" id="example-email-input" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="example-email-input" class="col-form-label">Username:</label>
-                            <input name="name" class="form-control" type="text" required>
+                        <div class="form-group row">
+                            <label for="example-email-input" class="col-2 col-form-label">Username:</label>
+                            <div class="col-10">
+                                <input name="name" class="form-control" type="text" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="example-email-input" class="col-form-label">Password:</label>
-                            <input name="password" class="form-control" type="password" required>
+                        <div class="form-group row">
+                            <label for="example-email-input" class="col-2 col-form-label">Password:</label>
+                            <div class="col-10">
+                                <input name="password" class="form-control" type="password" pattern=".{8,}" title="Password must be at least 8 characters long." required>
+                                <div class="invalid-feedback">Password must be at least 8 characters long.</div>
+                            </div>
                         </div>
-
+                        <br>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Sign up</button>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
                         </div>
                     </form>
                 </div>

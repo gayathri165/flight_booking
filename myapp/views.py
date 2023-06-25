@@ -10,11 +10,9 @@ from django.contrib.auth.models import User
 from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
-from django.contrib import auth,messages
-
-
+from django.contrib import auth, messages
 from django.contrib.admin.views.decorators import staff_member_required
-
+from datetime import datetime
 def index(request):
     return render(request, 'myapp/index.html')
 
@@ -25,6 +23,8 @@ def home(request):
         return render(request, 'myapp/signin.html')
 
 
+
+
 @login_required(login_url='signin')
 def findflight(request):
     context = {}
@@ -33,23 +33,35 @@ def findflight(request):
         dest_r = request.POST.get('destination')
         date_r = request.POST.get('date')
         time_r = request.POST.get('time')
-        flight_list = Flight.objects.filter(source=source_r, dest=dest_r, date=date_r, time=time_r)
+
+        date_obj = datetime.strptime(date_r, "%B %d, %Y").date()
+
+        if time_r == 'midnight':
+            time_obj = datetime.strptime('12 AM', "%I %p").time()
+        elif time_r == 'noon':
+            time_obj = datetime.strptime('12 PM', "%I %p").time()
+        else:
+            time_r_adjusted = time_r.replace('.', '')
+            time_obj = datetime.strptime(time_r_adjusted, "%I %p").time()
+
+        flight_list = Flight.objects.filter(source=source_r, dest=dest_r, date=date_obj, time=time_obj)
+
         if flight_list:
             return render(request, 'myapp/list.html', {'flight_list': flight_list})
         else:
             messages.error(request, "Sorry, no flights available")
-            #context["show_alert"] = True
             return redirect('findflight')
     else:
         source_airports = Flight.objects.values_list('source', flat=True).distinct()
         dest_airports = Flight.objects.values_list('dest', flat=True).distinct()
+        date_choices = Flight.objects.values('date').distinct().order_by('date')
+        time_choices = Flight.objects.values('time').distinct().order_by('time')
         context['source_airports'] = source_airports
         context['dest_airports'] = dest_airports
+        context['date_choices'] = date_choices
+        context['time_choices'] = time_choices
 
     return render(request, 'myapp/findflight.html', context)
-
-
-
 
 @login_required(login_url='signin')
 def bookings(request):
@@ -132,7 +144,13 @@ def signup(request):
         name_r = request.POST.get('name')
         email_r = request.POST.get('email')
         password_r = request.POST.get('password')
-        user = User.objects.create_user(name_r, email_r, password_r, )
+
+        if User.objects.filter(username=name_r).exists():
+            error_message = "Username already exists. Please choose a different username."
+            context["error_message"] = error_message
+            return render(request, 'myapp/signup.html', context)
+
+        user = User.objects.create_user(name_r, email_r, password_r)
         if user:
             login(request, user)
             return render(request, 'myapp/thank.html')
@@ -140,7 +158,7 @@ def signup(request):
             context["error"] = "Provide valid credentials"
             return render(request, 'myapp/signup.html', context)
     else:
-        return render(request, 'myapp/signup.html', context)
+        return render(request, 'myapp/signup.html',context)
 
 
 def signin(request):

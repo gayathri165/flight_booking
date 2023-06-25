@@ -53,18 +53,31 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="date-input" class="col-2 col-form-label">Date</label>
-                        <div class="col-10">
-                            <input name="date" class="form-control" type="date" id="date-input">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="time-input" class="col-2 col-form-label">Time</label>
-                        <div class="col-10">
-                            <input name="time" class="form-control" type="time" id="time-input">
-                        </div>
-                    </div>
+
+
+<div class="form-group row">
+    <label for="date-input" class="col-2 col-form-label">Date</label>
+    <div class="col-10">
+        <select name="date" class="form-control" id="date-input">
+            {% for option in date_choices %}
+                <option value="{{ option.date }}">{{ option.date }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="time-input" class="col-2 col-form-label">Time</label>
+    <div class="col-10">
+        <select name="time" class="form-control" id="time-input">
+            {% for option in time_choices %}
+                <option value="{{ option.time }}">{{ option.time }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Search flights</button>
                     </div>
@@ -80,4 +93,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
