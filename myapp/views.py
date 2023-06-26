@@ -13,7 +13,9 @@ from decimal import Decimal
 from django.contrib import auth, messages
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime
+from django.views.decorators.http import require_http_methods
 def index(request):
+
     return render(request, 'myapp/index.html')
 
 def home(request):
@@ -28,6 +30,8 @@ def home(request):
 @login_required(login_url='signin')
 def findflight(request):
     context = {}
+    all_flights = Flight.objects.all()
+    context['all_flights'] = all_flights
     if request.method == 'POST':
         source_r = request.POST.get('source')
         dest_r = request.POST.get('destination')
@@ -43,6 +47,9 @@ def findflight(request):
         else:
             time_r_adjusted = time_r.replace('.', '')
             time_obj = datetime.strptime(time_r_adjusted, "%I %p").time()
+
+
+
 
         flight_list = Flight.objects.filter(source=source_r, dest=dest_r, date=date_obj, time=time_obj)
 
@@ -61,7 +68,12 @@ def findflight(request):
         context['date_choices'] = date_choices
         context['time_choices'] = time_choices
 
-    return render(request, 'myapp/findflight.html', context)
+    return render(request, 'myapp/findflight.html',context)
+
+
+
+
+
 
 @login_required(login_url='signin')
 def bookings(request):
