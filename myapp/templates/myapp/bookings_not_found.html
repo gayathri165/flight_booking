@@ -1,0 +1,11 @@
+{% extends 'myapp/base_admin.html' %}
+{% block content %}
+<div class="container text-center" style="margin-top: 70px;">
+  <br>
+    <h2> Flights Not Book</h2>
+  <br>
+    <p>Sorry ! You have not booked any filghts yet !!</p>
+  <br>
+    <a href="{% url 'findflight' %}" class="btn btn-primary">Search Flights</a>
+</div>
+{% endblock %}
